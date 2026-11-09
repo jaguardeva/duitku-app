@@ -1,0 +1,26 @@
+{
+    "name": "CatatDuit - Pencatatan Keuangan Pribadi",
+    "short_name": "CatatDuit",
+    "description": "Aplikasi pencatatan keuangan pribadi dan manajemen anggaran modern.",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#FFFFFF",
+    "theme_color": "#003A70",
+    "lang": "id-ID",
+    "categories": ["finance", "productivity", "utilities"],
+    "icons": [
+        {
+            "src": "/favicon.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ]
+}

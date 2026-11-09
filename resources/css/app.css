@@ -1,0 +1,115 @@
+@import 'tailwindcss';
+
+/* Enable class-based dark mode variant for Tailwind CSS v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
+@source '../js/**/*.{svelte,ts,js}';
+
+:root {
+    color-scheme: light;
+    --color-bg: #f8fafc;
+    --color-surface: #ffffff;
+    --color-text-main: #001f3f;
+    --color-text-muted: #5a6e85;
+    --color-border: #e2e8f0;
+
+    /* Mandiri Corporate Blue */
+    --color-primary: #003a70;
+    --color-primary-hover: #002b54;
+
+    /* Livin' Selective Yellow */
+    --color-accent: #ffb700;
+    --color-accent-hover: #ffd200;
+
+    --color-danger: #dc2626;
+    --color-success: #15803d;
+}
+
+.dark {
+    color-scheme: dark;
+    --color-bg: #051326;
+    --color-surface: #0b223d;
+    --color-text-main: #ffffff;
+    --color-text-muted: #94a3b8;
+    --color-border: #1e3a5f;
+
+    /* Mandiri Blue in dark context */
+    --color-primary: #38bdf8;
+    --color-primary-hover: #7dd3fc;
+
+    /* Livin' Gold in dark context */
+    --color-accent: #ffb700;
+    --color-accent-hover: #ffd200;
+
+    --color-danger: #f87171;
+    --color-success: #4ade80;
+}
+
+html.dark {
+    color-scheme: dark;
+}
+
+.disable-transitions,
+.disable-transitions *,
+.disable-transitions *::before,
+.disable-transitions *::after {
+    transition: none !important;
+    animation: none !important;
+}
+
+@theme {
+    --font-sans:
+        'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
+    --font-mono:
+        'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont,
+        ui-sans-serif, system-ui, sans-serif;
+    --font-numeric:
+        'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont,
+        ui-sans-serif, system-ui, sans-serif;
+    --color-primary: var(--color-primary);
+    --color-primary-hover: var(--color-primary-hover);
+    --color-accent: var(--color-accent);
+    --color-bg: var(--color-bg);
+    --color-surface: var(--color-surface);
+    --color-text-main: var(--color-text-main);
+    --color-text-muted: var(--color-text-muted);
+    --color-border: var(--color-border);
+    --color-danger: var(--color-danger);
+    --color-success: var(--color-success);
+
+    /* Brand Tokens */
+    --color-mandiri-blue: #003a70;
+    --color-mandiri-blue-dark: #002b54;
+    --color-mandiri-navy: #0c3b67;
+    --color-livin-yellow: #ffb700;
+    --color-livin-gold: #ffd200;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text-main);
+    font-family: var(--font-sans);
+}
+
+/* E-wallet numeric font styling for financial amounts & balances */
+.font-mono,
+.font-numeric,
+[data-numeric] {
+    font-family: var(--font-numeric, var(--font-sans));
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings: 'tnum' 1, 'lnum' 1;
+    letter-spacing: -0.015em;
+}
+
+/* Preserve true monospace for code & developer metadata blocks */
+pre,
+code,
+kbd,
+samp {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+}
