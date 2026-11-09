@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\TransferFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,6 +26,7 @@ use Illuminate\Support\Carbon;
  */
 class Transfer extends Model
 {
+    /** @use HasFactory<TransferFactory> */
     use HasFactory, HasUuids, SoftDeletes;
 
     /**

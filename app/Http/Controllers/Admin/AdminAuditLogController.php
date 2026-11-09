@@ -35,9 +35,7 @@ class AdminAuditLogController extends Controller
         }
 
         $query->orderBy($sortBy, $sortDir);
-        if ($sortBy !== 'id') {
-            $query->orderBy('id', 'desc');
-        }
+        $query->orderBy('id', 'desc');
 
         $auditLogs = $query->paginate($perPage)->withQueryString();
 

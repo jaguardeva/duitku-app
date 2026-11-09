@@ -35,6 +35,11 @@
     );
     const activeOgTitle = $derived(ogTitle || fullTitle);
     const activeOgDescription = $derived(ogDescription || activeDescription);
+    const jsonLdMarkup = $derived(
+        jsonLd
+            ? '<script type="application/ld+json">' + JSON.stringify(jsonLd) + '<' + '/script>'
+            : '',
+    );
 </script>
 
 <svelte:head>
@@ -73,6 +78,6 @@
     {/if}
 
     {#if jsonLd}
-        {@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
+        {@html jsonLdMarkup}
     {/if}
 </svelte:head>

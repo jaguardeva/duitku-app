@@ -45,8 +45,6 @@ class UserAgentParser
     protected static function parsePlatform(string $userAgent): string
     {
         $platforms = [
-            'Windows' => '/windows nt 10\.0/i',
-            'Windows 11/10' => '/windows nt 10/i',
             'Windows 8.1' => '/windows nt 6\.3/i',
             'Windows 8' => '/windows nt 6\.2/i',
             'Windows 7' => '/windows nt 6\.1/i',

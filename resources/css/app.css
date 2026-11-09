@@ -102,7 +102,9 @@ body {
 [data-numeric] {
     font-family: var(--font-numeric, var(--font-sans));
     font-variant-numeric: tabular-nums lining-nums;
-    font-feature-settings: 'tnum' 1, 'lnum' 1;
+    font-feature-settings:
+        'tnum' 1,
+        'lnum' 1;
     letter-spacing: -0.015em;
 }
 
@@ -111,5 +113,6 @@ pre,
 code,
 kbd,
 samp {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+    font-family:
+        ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
 }

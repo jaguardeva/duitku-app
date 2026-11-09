@@ -98,7 +98,7 @@ class TransferController extends Controller
 
         $sourceBalance = $this->balanceCalculationService->calculateWalletBalance($sourceWallet);
 
-        if (bccomp((string) $validated['amount'], $sourceBalance, 4) === 1) {
+        if (bccomp($this->numericString($validated['amount']), $sourceBalance, 4) === 1) {
             throw ValidationException::withMessages([
                 'amount' => [__('messages.transfer.insufficient_balance')],
             ]);
@@ -127,5 +127,21 @@ class TransferController extends Controller
         $transfer->delete();
 
         return redirect()->route('transfers.index')->with('success', __('messages.transfer.deleted'));
+    }
+
+    /**
+     * @return numeric-string
+     */
+    private function numericString(mixed $value): string
+    {
+        $value = (string) $value;
+
+        if (! is_numeric($value)) {
+            throw ValidationException::withMessages([
+                'amount' => [__('validation.numeric', ['attribute' => 'amount'])],
+            ]);
+        }
+
+        return $value;
     }
 }

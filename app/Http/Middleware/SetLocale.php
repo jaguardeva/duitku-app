@@ -17,7 +17,7 @@ class SetLocale
     public function handle(Request $request, Closure $next): Response
     {
         $locale = $request->session()->get('locale')
-            ?? $request->user()?->locale
+            ?? $request->user()->locale
             ?? $request->cookie('catatduit_locale', config('app.locale'));
 
         if (! in_array($locale, ['id', 'en'], true)) {

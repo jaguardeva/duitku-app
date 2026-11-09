@@ -15,6 +15,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransferController;
 use App\Http\Controllers\UserSessionController;
 use App\Http\Controllers\WalletController;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -53,13 +54,13 @@ Route::get('/sitemap.xml', function () {
 })->name('sitemap');
 
 Route::get('/robots.txt', function () {
-    return response(file_get_contents(public_path('robots.txt')), 200, [
+    return response(File::get(public_path('robots.txt')), 200, [
         'Content-Type' => 'text/plain',
     ]);
 });
 
 Route::get('/site.webmanifest', function () {
-    return response(file_get_contents(public_path('site.webmanifest')), 200, [
+    return response(File::get(public_path('site.webmanifest')), 200, [
         'Content-Type' => 'application/manifest+json',
     ]);
 });

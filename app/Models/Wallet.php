@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\WalletFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,6 +27,7 @@ use Illuminate\Support\Carbon;
  */
 class Wallet extends Model
 {
+    /** @use HasFactory<WalletFactory> */
     use HasFactory, HasUuids;
 
     /**

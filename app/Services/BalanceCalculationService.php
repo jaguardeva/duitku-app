@@ -13,6 +13,8 @@ class BalanceCalculationService
     /**
      * Calculate current ledger balance for a single wallet.
      * Formula: opening_balance + income - expense + transfer_in - transfer_out
+     *
+     * @return numeric-string
      */
     public function calculateWalletBalance(Wallet $wallet): string
     {
@@ -35,7 +37,7 @@ class BalanceCalculationService
             ->sum('amount');
 
         // High precision calculation using bcmath
-        $balance = bcadd((string) $wallet->opening_balance, $income, 4);
+        $balance = bcadd($this->numericString($wallet->opening_balance), $income, 4);
         $balance = bcsub($balance, $expense, 4);
         $balance = bcadd($balance, $transferIn, 4);
         $balance = bcsub($balance, $transferOut, 4);
@@ -87,7 +89,7 @@ class BalanceCalculationService
                 $grouped[$code] = '0.0000';
             }
 
-            $grouped[$code] = bcadd($grouped[$code], (string) $current, 4);
+            $grouped[$code] = bcadd($grouped[$code], $this->numericString($current), 4);
         }
 
         return $grouped;
@@ -128,14 +130,28 @@ class BalanceCalculationService
             }
 
             if ($tx->type === 'income') {
-                $summary[$curr]['income'] = bcadd($summary[$curr]['income'], (string) $tx->amount, 4);
+                $summary[$curr]['income'] = bcadd($summary[$curr]['income'], $this->numericString($tx->amount), 4);
             } else {
-                $summary[$curr]['expense'] = bcadd($summary[$curr]['expense'], (string) $tx->amount, 4);
+                $summary[$curr]['expense'] = bcadd($summary[$curr]['expense'], $this->numericString($tx->amount), 4);
             }
 
             $summary[$curr]['net'] = bcsub($summary[$curr]['income'], $summary[$curr]['expense'], 4);
         }
 
         return $summary;
+    }
+
+    /**
+     * @return numeric-string
+     */
+    private function numericString(mixed $value): string
+    {
+        $value = (string) $value;
+
+        if (! is_numeric($value)) {
+            throw new \InvalidArgumentException('The value must be numeric.');
+        }
+
+        return $value;
     }
 }

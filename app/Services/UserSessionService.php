@@ -3,9 +3,10 @@
 namespace App\Services;
 
 use App\Models\User;
-use Illuminate\Support\Carbon;
+use Carbon\CarbonImmutable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use stdClass;
 
 class UserSessionService
 {
@@ -15,7 +16,7 @@ class UserSessionService
      *     ip_address: string,
      *     is_current_device: bool,
      *     agent: array{
-     *         device_type: 'desktop'|'mobile'|'tablet'|'bot',
+     *         device_type: string,
      *         platform: string,
      *         browser: string,
      *         display_name: string
@@ -33,17 +34,21 @@ class UserSessionService
             ->where('user_id', $user->id)
             ->orderByDesc('last_activity')
             ->get()
-            ->map(function ($session) use ($currentSessionId, $appKey): array {
+            ->map(function (stdClass $session) use ($currentSessionId, $appKey): array {
                 $isCurrent = $session->id === $currentSessionId;
-                $agent = UserAgentParser::parse($session->user_agent);
-                $lastActiveTime = Carbon::createFromTimestamp($session->last_activity);
+                $agent = UserAgentParser::parse($session->user_agent !== null ? (string) $session->user_agent : null);
+                $lastActiveTime = new CarbonImmutable('@'.(string) $session->last_activity);
+                $lastActiveTime->setLocale(app()->getLocale());
+                $lastActive = $isCurrent
+                    ? (string) __('frontend.common.active_now')
+                    : (string) $lastActiveTime->diffForHumans();
 
                 return [
                     'id' => hash('sha256', $session->id.$appKey),
-                    'ip_address' => $session->ip_address ?? '127.0.0.1',
+                    'ip_address' => (string) ($session->ip_address ?? '127.0.0.1'),
                     'is_current_device' => $isCurrent,
                     'agent' => $agent,
-                    'last_active' => $isCurrent ? __('frontend.common.active_now') : $lastActiveTime->locale(app()->getLocale())->diffForHumans(),
+                    'last_active' => $lastActive,
                     'last_active_at' => $lastActiveTime->toIso8601String(),
                 ];
             })

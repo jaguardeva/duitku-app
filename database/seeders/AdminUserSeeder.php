@@ -14,8 +14,8 @@ class AdminUserSeeder extends Seeder
      */
     public function run(): void
     {
-        $adminEmail = env('ADMIN_INITIAL_EMAIL', 'admin@catatduit.test');
-        $adminPassword = env('ADMIN_INITIAL_PASSWORD', 'Admin#CatatDuit2026!');
+        $adminEmail = (string) config('app.admin_initial_email');
+        $adminPassword = (string) config('app.admin_initial_password');
 
         User::firstOrCreate(
             ['email' => strtolower(trim($adminEmail))],

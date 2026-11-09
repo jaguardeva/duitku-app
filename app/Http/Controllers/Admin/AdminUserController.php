@@ -57,9 +57,7 @@ class AdminUserController extends Controller
         }
 
         $query->orderBy($sortBy, $sortDir);
-        if ($sortBy !== 'id') {
-            $query->orderBy('id', 'desc');
-        }
+        $query->orderBy('id', 'desc');
 
         $users = $query->paginate($perPage)->withQueryString();
 

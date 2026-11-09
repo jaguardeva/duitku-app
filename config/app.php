@@ -84,6 +84,10 @@ return [
 
     'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),
 
+    'admin_initial_email' => env('ADMIN_INITIAL_EMAIL', 'admin@catatduit.test'),
+
+    'admin_initial_password' => env('ADMIN_INITIAL_PASSWORD', 'Admin#CatatDuit2026!'),
+
     /*
     |--------------------------------------------------------------------------
     | Encryption Key

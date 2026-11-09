@@ -27,8 +27,10 @@ class AuditLogService
             'target_type' => $targetType,
             'target_id' => $targetId,
             'metadata' => $metadata,
-            'ip_address' => $request?->ip(),
-            'user_agent' => $request ? substr((string) $request->userAgent(), 0, 500) : null,
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent() !== null
+                ? substr($request->userAgent(), 0, 500)
+                : null,
             'created_at' => Carbon::now('UTC'),
         ]);
     }
